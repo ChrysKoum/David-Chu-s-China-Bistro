@@ -18,7 +18,7 @@ body {
 }
 
 #logo-img {
-	background: url('../images/restaurant-logo_large.png') no-repeat;
+	background: url('/David-Chu-s-China-Bistro/images/restaurant-logo_large.png') no-repeat;
 	width: 150px;
 	height: 150px;
 	margin: 10px 15px 10px 0;
@@ -135,12 +135,12 @@ body {
 }
 
 #menu-tile {
-	background: url('../images/menu-tile.jpg') no-repeat;
+	background: url('/David-Chu-s-China-Bistro/images/menu-tile.jpg') no-repeat;
 	background-position: center;
 }
 
 #specials-tile {
-	background: url('../images/specials-tile.jpg') no-repeat;
+	background: url('/David-Chu-s-China-Bistro/images/specials-tile.jpg') no-repeat;
 	background-position: center;
 }
 
