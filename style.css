@@ -291,7 +291,7 @@ h3.menu-item-title {
 /* ********* XLarge devices only ********* */
 @media (min-width: 1400px) {
 	.container .jumbotron {
-		background: url('../images/jumbotron_1200.jpg') no-repeat;
+		background: url('/David-Chu-s-China-Bistro/images/jumbotron_1200.jpg') no-repeat;
 		max-width: 1140px;
 		height: 675px;
 	}
@@ -309,7 +309,7 @@ h3.menu-item-title {
 /********** Large devices only **********/
 @media (min-width: 1200px) and (max-width: 1399px) {
 	.container .jumbotron {
-		background: url('../images/jumbotron_1200.jpg') no-repeat;
+		background: url('/David-Chu-s-China-Bistro/images/jumbotron_1200.jpg') no-repeat;
 		height: 675px;
 	}
 
@@ -323,7 +323,7 @@ h3.menu-item-title {
 @media (min-width: 992px) and (max-width: 1199px) {
 	/* Header */
 	#logo-img {
-		background: url('../images/restaurant-logo_medium.png') no-repeat;
+		background: url('/David-Chu-s-China-Bistro/images/restaurant-logo_medium.png') no-repeat;
 		width: 100px;
 		height: 100px;
 		margin: 5px 5px 5px 0;
@@ -333,7 +333,7 @@ h3.menu-item-title {
 
 	/* Home Page */
 	.container .jumbotron {
-		background: url('../images/jumbotron_992.jpg') no-repeat;
+		background: url('/David-Chu-s-China-Bistro/images/jumbotron_992.jpg') no-repeat;
 		height: 558px;
 	}
 
@@ -350,7 +350,7 @@ h3.menu-item-title {
 	/* Home Page */
 
 	.container .jumbotron {
-		background: url('../images/jumbotron_768.jpg') no-repeat;
+		background: url('/David-Chu-s-China-Bistro/images/jumbotron_768.jpg') no-repeat;
 		height: 432px;
 	}
 
