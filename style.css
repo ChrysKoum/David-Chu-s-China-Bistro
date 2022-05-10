@@ -71,9 +71,14 @@ body {
 #nav-list a {
 	color: #951c49;
 	text-align: center;
+	padding: 1vw;
 }
 
-#nav-list a:hover,#nav-list a span:hover{
+.nav-link:hover{
+		background: #e7e7e7;
+}
+
+#nav-list a span:hover{
 	background: #e7e7e7;
 }
 

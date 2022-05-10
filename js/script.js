@@ -23,7 +23,7 @@ navbarToggle.addEventListener('focus', (event) => {
 (function(global) {
 	var dc = {};
 
-	var homeHtml = 'snippets/home-snippet.html';
+	var homeHtmlUrl = 'snippets/home-snippet.html';
 	var allCategoriesUrl = 'https://davids-restaurant.herokuapp.com/categories.json';
 	var categoriesTitleHtml = 'snippets/categories-title-snippet.html';
 	var categoryHtml = 'snippets/category-snippet.html';
@@ -66,19 +66,41 @@ navbarToggle.addEventListener('focus', (event) => {
 			document.querySelector('#navMenuButton').className = classes;
 		}
 	};
-
-	// On page load (before images or CSS)
 	document.addEventListener('DOMContentLoaded', function(event) {
-		// On first load, show home view
 		showLoading('#main-content');
+		$ajaxUtils.sendGetRequest(allCategoriesUrl, buildAndShowHomeHTML, true);
+	});
+	// *** finish **
+
+	// Builds HTML for the home page based on categories array
+	// returned from the server.
+	function buildAndShowHomeHTML(categories) {
+		// Load home snippet page
+
 		$ajaxUtils.sendGetRequest(
-			homeHtml,
-			function(responseText) {
-				document.querySelector('#main-content').innerHTML = responseText;
+			homeHtmlUrl,
+			function(homeHtml) {
+				let chosenCategoryShortName = chooseRandomCategory(categories).short_name;
+
+				var homeHtmlToInsertIntoMainPage = insertProperty(
+					homeHtml,
+					'randomCategoryShortName',
+					"'" + chosenCategoryShortName + "'"
+				);
+				insertHtml('#main-content', homeHtmlToInsertIntoMainPage);
 			},
 			false
 		);
-	});
+	}
+
+	// Given array of category objects, returns a random category object.
+	function chooseRandomCategory(categories) {
+		// Choose a random index into the array (from 0 inclusively until array length (exclusively))
+		var randomArrayIndex = Math.floor(Math.random() * categories.length);
+
+		// return category object with that randomArrayIndex
+		return categories[randomArrayIndex];
+	}
 
 	// Load the menu categories view
 	dc.loadMenuCategories = function() {
@@ -137,7 +159,6 @@ navbarToggle.addEventListener('focus', (event) => {
 		finalHtml += '</section>';
 		return finalHtml;
 	}
-
 	// Builds HTML for the single category page based on the data
 	// from the server
 	function buildAndShowMenuItemsHTML(categoryMenuItems) {
@@ -195,7 +216,7 @@ navbarToggle.addEventListener('focus', (event) => {
 			html = insertProperty(html, 'description', menuItems[i].description);
 
 			// Add clearfix after every second menu item
-			if (i % 2 != 0) {
+			if (i % 2 !== 0) {
 				html += "<div class='clearfix visible-lg-block visible-md-block'></div>";
 			}
 
