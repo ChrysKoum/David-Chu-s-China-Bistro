@@ -23,7 +23,7 @@ navbarToggle.addEventListener('focus', (event) => {
 (function(global) {
 	var dc = {};
 
-	var homeHtml = 'snippets/home-snippet.html';
+	var homeHtmlUrl = 'snippets/home-snippet.html';
 	var allCategoriesUrl = 'https://davids-restaurant.herokuapp.com/categories.json';
 	var categoriesTitleHtml = 'snippets/categories-title-snippet.html';
 	var categoryHtml = 'snippets/category-snippet.html';
@@ -61,7 +61,7 @@ navbarToggle.addEventListener('focus', (event) => {
 
 		// Add 'active' to menu button if not already there
 		classes = document.querySelector('#navMenuButton').className;
-		if (classes.indexOf('active') == -1) {
+		if (classes.indexOf('active') === -1) {
 			classes += ' active';
 			document.querySelector('#navMenuButton').className = classes;
 		}
@@ -69,19 +69,19 @@ navbarToggle.addEventListener('focus', (event) => {
 
 	// On page load (before images or CSS)
 	document.addEventListener('DOMContentLoaded', function(event) {
-		// On first load, show home view
 		showLoading('#main-content');
 		$ajaxUtils.sendGetRequest(
 			allCategoriesUrl,
-			buildAndShowHomeHTML,
+			buildAndShowHomeHTML, 
 			true
-		);
+		); 
 	});
-
+	
 	// Builds HTML for the home page based on categories array
 	// returned from the server.
 	function buildAndShowHomeHTML(categories) {
 		// Load home snippet page
+
 		$ajaxUtils.sendGetRequest(
 			homeHtmlUrl,
 			function(homeHtml) {
@@ -95,7 +95,7 @@ navbarToggle.addEventListener('focus', (event) => {
 				insertHtml('#main-content', homeHtmlToInsertIntoMainPage);
 			},
 			false
-		); // False here because we are getting just regular HTML from the server, so no need to process JSON.
+		);
 	}
 
 	// Given array of category objects, returns a random category object.
@@ -222,7 +222,7 @@ navbarToggle.addEventListener('focus', (event) => {
 			html = insertProperty(html, 'description', menuItems[i].description);
 
 			// Add clearfix after every second menu item
-			if (i % 2 != 0) {
+			if (i % 2 !== 0) {
 				html += "<div class='clearfix visible-lg-block visible-md-block'></div>";
 			}
 
