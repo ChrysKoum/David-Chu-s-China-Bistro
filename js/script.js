@@ -1,20 +1,29 @@
-$(function() {
-	// Same as document.addEventListener("DOMContentLoaded"...
+// Same as document.addEventListener("DOMContentLoaded"...
 
-	// Same as document.querySelector("#navbarToggle").addEventListener("blur",...
-	$('#navbarToggle').blur(function(event) {
-		var screenWidth = window.innerWidth;
-		if (screenWidth < 768) {
-			$('#collapsable-nav').collapse('hide');
-		}
-	});
+let navbarToggle = document.getElementById('navbarToggle');
+let navbarNav = document.getElementById('navbarNav');
+
+var bsCollapse = new bootstrap.Collapse(navbarNav, {
+	toggle: false
 });
 
+// Same as document.querySelector("#navbarToggle").addEventListener("blur",...
+navbarToggle.addEventListener('blur', (event) => {
+	let screenWidth = window.innerWidth;
+	console.log('screenWidth =' + screenWidth);
+	if (screenWidth < 768) {
+		bsCollapse.toggle();
+	}
+});
+
+navbarToggle.addEventListener('focus', (event) => {
+	event.target.focus();
+});
 
 (function(global) {
 	var dc = {};
 
-	var homeHtmlUrl = 'snippets/home-snippet.html';
+	var homeHtml = 'snippets/home-snippet.html';
 	var allCategoriesUrl = 'https://davids-restaurant.herokuapp.com/categories.json';
 	var categoriesTitleHtml = 'snippets/categories-title-snippet.html';
 	var categoryHtml = 'snippets/category-snippet.html';
@@ -52,7 +61,7 @@ $(function() {
 
 		// Add 'active' to menu button if not already there
 		classes = document.querySelector('#navMenuButton').className;
-		if (classes.indexOf('active') === -1) {
+		if (classes.indexOf('active') == -1) {
 			classes += ' active';
 			document.querySelector('#navMenuButton').className = classes;
 		}
@@ -60,43 +69,16 @@ $(function() {
 
 	// On page load (before images or CSS)
 	document.addEventListener('DOMContentLoaded', function(event) {
+		// On first load, show home view
 		showLoading('#main-content');
 		$ajaxUtils.sendGetRequest(
-			allCategoriesUrl,
-			buildAndShowHomeHTML, 
-			true
-		); 
-	});
-	
-	// Builds HTML for the home page based on categories array
-	// returned from the server.
-	function buildAndShowHomeHTML(categories) {
-		// Load home snippet page
-
-		$ajaxUtils.sendGetRequest(
-			homeHtmlUrl,
-			function(homeHtml) {
-				let chosenCategoryShortName = chooseRandomCategory(categories).short_name;
-
-				var homeHtmlToInsertIntoMainPage = insertProperty(
-					homeHtml,
-					'randomCategoryShortName',
-					"'" + chosenCategoryShortName + "'"
-				);
-				insertHtml('#main-content', homeHtmlToInsertIntoMainPage);
+			homeHtml,
+			function(responseText) {
+				document.querySelector('#main-content').innerHTML = responseText;
 			},
 			false
 		);
-	}
-
-	// Given array of category objects, returns a random category object.
-	function chooseRandomCategory(categories) {
-		// Choose a random index into the array (from 0 inclusively until array length (exclusively))
-		var randomArrayIndex = Math.floor(Math.random() * categories.length);
-
-		// return category object with that randomArrayIndex
-		return categories[randomArrayIndex];
-	}
+	});
 
 	// Load the menu categories view
 	dc.loadMenuCategories = function() {
@@ -155,7 +137,6 @@ $(function() {
 		finalHtml += '</section>';
 		return finalHtml;
 	}
-
 	// Builds HTML for the single category page based on the data
 	// from the server
 	function buildAndShowMenuItemsHTML(categoryMenuItems) {
@@ -213,7 +194,7 @@ $(function() {
 			html = insertProperty(html, 'description', menuItems[i].description);
 
 			// Add clearfix after every second menu item
-			if (i % 2 !== 0) {
+			if (i % 2 != 0) {
 				html += "<div class='clearfix visible-lg-block visible-md-block'></div>";
 			}
 
