@@ -1,24 +1,15 @@
-// Same as document.addEventListener("DOMContentLoaded"...
+$(function() {
+	// Same as document.addEventListener("DOMContentLoaded"...
 
-let navbarToggle = document.getElementById('navbarToggle');
-let navbarNav = document.getElementById('navbarNav');
-
-var bsCollapse = new bootstrap.Collapse(navbarNav, {
-	toggle: false
+	// Same as document.querySelector("#navbarToggle").addEventListener("blur",...
+	$('#navbarToggle').blur(function(event) {
+		var screenWidth = window.innerWidth;
+		if (screenWidth < 768) {
+			$('#collapsable-nav').collapse('hide');
+		}
+	});
 });
 
-// Same as document.querySelector("#navbarToggle").addEventListener("blur",...
-navbarToggle.addEventListener('blur', (event) => {
-	let screenWidth = window.innerWidth;
-	console.log('screenWidth =' + screenWidth);
-	if (screenWidth < 768) {
-		bsCollapse.toggle();
-	}
-});
-
-navbarToggle.addEventListener('focus', (event) => {
-	event.target.focus();
-});
 
 (function(global) {
 	var dc = {};
